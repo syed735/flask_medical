@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    <title>RiskAssess | Breast Cancer Prediction</title>
+</head>
+<style>
+    button {
+        border-style: none;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        text-align: center;
+    }
+    
+    form {
+        margin-top: 3%;
+        margin-left: 29%;
+        margin-right: 21%;
+    }
+    
+    form fieldset {
+        padding: 30px;
+        border-width: 20px;
+        border-style: groove;
+        border-color: #5a5a5a;
+        background-color: #fff;
+    }
+    
+    fieldset h1 {
+        color: #5a5a5a;
+        padding-bottom: 20px;
+        margin-left: 35px;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 28px;
+        text-align: center;
+    }
+    
+    fieldset label {
+        margin-left: 20px;
+        margin-right: 40px;
+        padding: 23px;
+        font-size: 20px;
+        display: inline-block;
+        width: 240px;
+    }
+    
+    fieldset input {
+        padding: 8px;
+        color: #938c8c
+    }
+    
+    fieldset input:focus {
+        color: #000;
+    }
+    
+    fieldset button {
+        margin-left: 60px;
+        color: #fff;
+        background-color: #5a5a5a;
+        border-radius: 3px;
+        padding: 13px 39px;
+        text-align: center;
+        letter-spacing: 0.9px;
+        text-decoration: none;
+        margin-right: 15px;
+        line-height: 26px;
+        font-size: 16px;
+        box-shadow: 0px 1px 3px 0px #5a5a5a;
+        right: 0px;
+        margin-top: 15px;
+    }
+    
+    .submit {
+        margin-left: 60px;
+        color: #fff;
+        background-color: #5a5a5a;
+        border-radius: 3px;
+        padding: 13px 39px;
+        text-align: center;
+        letter-spacing: 0.9px;
+        text-decoration: none;
+        margin-right: 10px;
+        line-height: 26px;
+        font-size: 16px;
+        box-shadow: 0px 1px 3px 0px #5a5a5a;
+        right: 100px;
+        margin-top: 15px;
+    }
+    
+    #link_to_edit {
+        padding-left: 45px;
+    }
+    
+    .fieldset {
+        margin-top: 3%;
+        margin-left: 0%;
+        margin-right: 0%;
+        padding: 30px;
+        border-width: 25px;
+        border-style: ridge;
+        border-color: #257a7a;
+        box-shadow: 6px 13px 13px 0px black;
+        background-color: #ebfffa;
+    }
+    
+    .image-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .image-info {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+        white-space: nowrap;
+    }
+    
+    .image-container:hover .image-info {
+        display: block;
+    }
+</style>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#"><b>Multiple Disease Prediction</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Get Started</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/disindex">Disease Index</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/cancer">Breast Cancer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/diabetes">Diabetes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/heart">Heart Disease</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kidney">Kidney Disease</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/liver">Liver Disease</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header><br/><br/>
+    <h1 style="text-align:center;"><img src="static/img/icons8-cancer-ribbon-50.png">&nbsp;Breast Cancer Prediction</h1>
+    <h5 style="text-align:center;">Please enter the patient details</h5>
+    <form action="{{ url_for('predict')}}" method="post" class="form-inline">
+        <fieldset>
+            <div class="tabcontent" id="new">
+                <div class="form-group">
+                    <label for="clump_thickness">Clump Thickness </label>
+                    <input type="number" class="form-control" name="clump_thickness" required="required"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>This refers to the thickness of the cell clusters in the sample. <br>The value ranges from 1 to 10, with 1 being a thin cluster and 10 being a very thick cluster.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="uniform_cell_size">Uniform Cell size</label>
+                    <input type="number" class="form-control" name="uniform_cell_size" required="required"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>This measures the consistency of cell size in the sample.<br> A value of 1 indicates that the cells are all roughly the same size, while a value of 10 indicates a high degree of variation in cell size.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="uniform_cell_shape">Uniform Cell shape</label>
+                    <input type="number" class="form-control" name="uniform_cell_shape" required="required" /> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>This measures the consistency of cell shape in the sample. <br>A value of 1 indicates that the cells are all roughly the same shape, while a value of 10 indicates a high degree of variation in cell shape.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="marginal_adhesion">Marginal Adhesion</label>
+                    <input type="number" class="form-control" name="marginal_adhesion" required="required" /> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>This refers to the degree of adhesion (i.e. sticking together) of the cells at the edges of the cell clusters.<br> A value of 1 indicates that the cells have very little adhesion, while a value of 10 indicates that they are
+                                highly adhesive.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="single_epithelial_size">Single Epithelial Cell Size</label>
+                    <input type="number" class="form-control" name="single_epithelial_size" required="required" /> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p> This measures the size of the individual cells in the sample.<br> A value of 1 indicates that the cells are small, while a value of 10 indicates that they are large.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bare_nuclei">Bare Nuclei</label>
+                    <input type="number" class="form-control" name="bare_nuclei" required="required" /> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>This refers to the presence or absence of a nucleus in the cells.<br> A value of 1 indicates that there are no nuclei, while a value of 10 indicates that there are many nuclei.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bland_chromatin">Bland Chromatin</label>
+                    <input type="number" class="form-control" name="bland_chromatin" required="required" /> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>This measures the uniformity of staining of the chromatin (the material that makes up the cell nucleus). <br>A value of 1 indicates that the staining is uniform, while a value of 10 indicates that there is a high degree of
+                                variation in staining.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="normal_nucleoli">Normal Nucleoli</label>
+                    <input type="number" class="form-control" name="normal_nucleoli" required="required" /> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>This measures the size and shape of the nucleoli (small structures inside the nucleus that produce ribosomes).<br> A value of 1 indicates that the nucleoli are small and uniform, while a value of 10 indicates that they are
+                                large and irregular.
+
+
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mitoses">Mitoses</label>
+                    <input type="number" class="form-control" name="mitoses" required="required" /> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>This measures the number of cells in the sample that are undergoing mitosis (cell division).<br> A value of 1 indicates that there are few cells undergoing mitosis, while a value of 10 indicates that there are many cells undergoing mitosis.
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary btn-lg">Predict</button>
+            </div>
+        </fieldset>
+    </form>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

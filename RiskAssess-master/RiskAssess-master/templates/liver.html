@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    <title>RiskAssess | Liver Disease Prediction</title>
+</head>
+<style>
+    button {
+        border-style: none;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        text-align: center;
+    }
+    
+    form {
+        margin-top: 3%;
+        margin-left: 29%;
+        margin-right: 21%;
+    }
+    
+    form fieldset {
+        padding: 30px;
+        border-width: 20px;
+        border-style: groove;
+        border-color: #5a5a5a;
+        background-color: #fff;
+    }
+    
+    fieldset h1 {
+        color: #5a5a5a;
+        padding-bottom: 20px;
+        margin-left: 35px;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 28px;
+        text-align: center;
+    }
+    
+    fieldset label {
+        margin-left: 20px;
+        margin-right: 40px;
+        padding: 23px;
+        font-size: 20px;
+        display: inline-block;
+        width: 240px;
+    }
+    
+    fieldset input {
+        padding: 8px;
+        color: #938c8c
+    }
+    
+    fieldset input:focus {
+        color: #000;
+    }
+    
+    fieldset button {
+        margin-left: 60px;
+        color: #fff;
+        background-color: #5a5a5a;
+        border-radius: 3px;
+        padding: 13px 39px;
+        text-align: center;
+        letter-spacing: 0.9px;
+        text-decoration: none;
+        margin-right: 15px;
+        line-height: 26px;
+        font-size: 16px;
+        box-shadow: 0px 1px 3px 0px #5a5a5a;
+        right: 0px;
+        margin-top: 15px;
+    }
+    
+    .submit {
+        margin-left: 60px;
+        color: #fff;
+        background-color: #5a5a5a;
+        border-radius: 3px;
+        padding: 13px 39px;
+        text-align: center;
+        letter-spacing: 0.9px;
+        text-decoration: none;
+        margin-right: 10px;
+        line-height: 26px;
+        font-size: 16px;
+        box-shadow: 0px 1px 3px 0px #5a5a5a;
+        right: 100px;
+        margin-top: 15px;
+    }
+    
+    #link_to_edit {
+        padding-left: 45px;
+    }
+    
+    .fieldset {
+        margin-top: 3%;
+        margin-left: 0%;
+        margin-right: 0%;
+        padding: 30px;
+        border-width: 25px;
+        border-style: ridge;
+        border-color: #257a7a;
+        box-shadow: 6px 13px 13px 0px black;
+        background-color: #ebfffa;
+    }
+    
+    .image-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .image-info {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 10%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+        white-space: nowrap;
+    }
+    
+    .image-container:hover .image-info {
+        display: block;
+    }
+</style>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#"><b>Multiple Disease Prediction</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Get Started</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/disindex">Disease Index</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cancer">Breast Cancer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/diabetes">Diabetes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/heart">Heart Disease</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kidney">Kidney Disease</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/liver">Liver Disease</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header><br/><br/>
+    <h1 style="text-align:center;"><img src="static/img/icons8-liver-64.png">&nbsp;Liver Disease Prediction</h1>
+    <h5 style="text-align:center;">Please enter the patient details</h5>
+    <form action="{{ url_for('predictliver')}}" method="post" class="form-inline">
+        <fieldset>
+            <div class="tabcontent" id="new">
+                <div class="form-group">
+                    <label for="Total Bilirubin">Total Bilirubin</label>
+                    <input class="form-control" type="number" id="Total Bilirubin" name="Total Bilirubin" required="required" placeholder="Enter the Total Bilirubin"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>Bilirubin is a yellow pigment that is produced when red blood cells break down.<br> Total bilirubin is the sum of both indirect (unconjugated) and direct (conjugated) bilirubin in the blood. <br>Elevated levels can indicate
+                                liver or gallbladder disease. </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Direct_Bilirubin">Direct Bilirubin</label>
+                    <input class="form-control" type="number" step="any" id="Direct_Bilirubin" name="Direct_Bilirubin" required="required" placeholder="Enter the Direct_Bilirubin"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p> Direct or conjugated bilirubin is a water-soluble form of bilirubin that is produced in the liver by <br>conjugation with glucuronic acid. <br>It is then excreted into the bile and ultimately eliminated from the body in feces.
+                                <br>Elevated levels of direct bilirubin can indicate liver or bile duct disease.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Alkaline_Phosphotase">Alkaline Phosphotase</label>
+                    <input class="form-control" type="number" id="Alkaline_Phosphotase" name="Alkaline_Phosphotase" required="required" placeholder="Enter the Alkaline Phosphotase"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>
+                                Alkaline phosphatase (ALP) is an enzyme found in many tissues, including the liver, bones, and intestines.<br> Elevated levels of ALP can indicate liver or bone disease.
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Alamine_Aminotransferase">Alamine Aminotransferase</label>
+                    <input class="form-control" type="number" id="Alamine_Aminotransferase" name="Alamine_Aminotransferase" required="required" placeholder="Enter the Alamine Aminotransferase"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>Alanine aminotransferase (ALT) is an enzyme found primarily in the liver. <br>Elevated levels of ALT can indicate liver damage or disease.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Total_Protiens">Total Protiens</label>
+                    <input class="form-control" type="number" id="Total_Protiens" name="Total_Protiens" required="required" placeholder="Enter the Total Protiens"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>Total proteins are the sum of all proteins in the blood, including albumin and globulins. <br>Low levels can indicate liver or kidney disease.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Albumin">Albumin</label>
+                    <input class="form-control" type="number" id="Albumin" name="Albumin" required="required" placeholder="Enter the Albumin"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>
+                                Albumin is a protein produced by the liver that helps regulate fluid balance in the body.<br> Low levels can indicate liver disease or malnutrition.
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Albumin_and_Globulin_Ratio">Albumin and Globulin Ratio</label>
+                    <input class="form-control" type="number" id="Albumin_and_Globulin_Ratio" name="Albumin_and_Globulin_Ratio" required="required" placeholder="Enter the Albumin and Globulin Ratio"> &nbsp;&nbsp;
+                    <div class="image-container">
+                        <img src="/static/img/icons8-info-30.png" alt="your-image-description" />
+                        <div class="image-info">
+                            <p>
+                                The albumin and globulin ratio is the ratio of albumin to globulins in the blood.<br> Abnormal ratios can indicate liver disease, kidney disease, or other health  conditions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary btn-lg">Predict</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

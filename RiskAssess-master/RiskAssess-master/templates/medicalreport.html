@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Medical Report</title>
+    <title>RiskAssess | Assessment</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script type="text/javascript" language="JavaScript">
+        window.onload = function() {
+            document.getElementById("download")
+                .addEventListener("click", () => {
+                    const invoice = this.document.getElementById("hello");
+                    console.log(invoice);
+                    console.log(window);
+                    var opt = {
+                        margin: 1,
+                        filename: 'Diabetes_Assessment.pdf',
+                        image: {
+                            type: 'jpeg',
+                            quality: 0.98
+                        },
+                        html2canvas: {
+                            scale: 2
+                        },
+                        jsPDF: {
+                            unit: 'in',
+                            format: 'letter',
+                            orientation: 'portrait'
+                        }
+                    };
+                    html2pdf().from(invoice).set(opt).save();
+                })
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-top: 0;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 1em;
+        }
+        
+        table {
+            border-collapse: collapse;
+            margin-bottom: 1em;
+            width: 100%;
+        }
+        
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 0.5em;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            background-color: #ccc;
+        }
+        
+        .footer {
+            background-color: #f2f2f2;
+            border-top: 1px solid #000;
+            font-size: 12px;
+            padding: 0.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body id="hello">
+    <h1>Medical Report</h1>
+
+    <h2>Patient Information</h2>
+    <table>
+        <tr>
+            {% if current_user.is_authenticated%}
+            <th>Name</th>
+            <td>{{current_user.username}}</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <th>Age</th>
+            <td>22</td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td>Male</td>
+        </tr>
+        <tr>
+            <th>Medical History</th>
+            <td>Aids,Sexual weakness</td>
+        </tr>
+    </table>
+
+    <h2>Medical Examination</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Examination Type</th>
+            <th>Results</th>
+        </tr>
+        <tr>
+            <td>2023-03-01</td>
+            <td>Physical Examination</td>
+            <td>Erctile disfunction</td>
+        </tr>
+        <tr>
+            <td>2023-03-15</td>
+            <td>Blood Test</td>
+            <td>High glucose level, elevated liver enzymes</td>
+        </tr>
+        <tr>
+            <td>2023-04-01</td>
+            <td>CT Scan</td>
+            <td>Mass detected in tetses, biopsy recommended</td>
+        </tr>
+    </table>
+
+    <h2>Diagnosis</h2>
+    <p>Based on the results of the medical examination, the patient has been diagnosed with Prostate cancer.</p>
+
+    <h2>Treatment Plan</h2>
+    <p>The patient will undergo surgery to remove the tumor, followed by chemotherapy and radiation therapy.</p>
+
+    <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="btn btn-primary btn-lg" id="download">Download</button>
+</body>
+
+</html>
