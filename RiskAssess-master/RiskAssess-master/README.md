@@ -44,7 +44,7 @@ To get a local copy up and running, follow these steps:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/Syed735/.gitflask-medical.git
+    git clone https://github.com/Syed735/flask-medical.git
     ```
 
 2. Navigate to the project directory:
