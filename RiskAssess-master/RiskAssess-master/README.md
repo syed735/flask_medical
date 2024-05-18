@@ -117,5 +117,5 @@ Project Link: https://github.com/Syed735/flask=medical/RiskAssess-master
 
 ---
 
-*This README was generated with ❤️ by Sufiyan*
+
 
